@@ -50,39 +50,10 @@ export default function Home() {
 
         <div className="md:col-span-7 space-y-8">
           <p className="font-display text-xl md:text-2xl leading-[1.3] tracking-tight">
-            I'm Samiksha Sharma, currently pursuing a Bachelor's degree in
-            Mathematics & Computing at Madhav Institute of Technology & Science
-            (MITS), Gwalior. With a strong foundation in web development and
-            problem-solving, I enjoy building scalable and user-centric
-            applications that address real-world challenges.
-            <br />
-            <br />
-            My expertise spans modern web technologies including React.js,
-            Next.js, Node.js, Express.js, MongoDB, and RESTful APIs, along with
-            proficiency in programming languages such as C++, Python,
-            JavaScript, and SQL.
-            <br />
-            <br />
-            Through hands-on projects like a Faculty Research Impact Portal,
-            Hospital Management System, and Music Analytics Dashboard, I have
-            gained practical experience in full-stack development,
-            authentication systems, database management, and data visualization.
-            <br />
-            <br />
-            Beyond development, I actively strengthen my problem-solving
-            abilities through Data Structures & Algorithms and competitive
-            programming, having solved 290+ coding problems across various
-            platforms.
-            <br />
-            <br />
-            I am also an Open Source Contributor at GSSoC'26 and continuously
-            seek opportunities to collaborate, learn, and contribute to
-            impactful software projects.
-            <br />
-            <br />
-            My journey as a developer is driven by curiosity, continuous
-            learning, and a passion for creating technology that delivers
-            meaningful user experiences and solves real-world problems.
+            I'm Samiksha Sharma, a Mathematics & Computing student at MITS
+            Gwalior. I build full-stack web apps and AI projects, from React and
+            Node.js platforms to computer vision and machine learning systems,
+            and I'm an open-source contributor at GSSoC'26.
           </p>
 
           <div>

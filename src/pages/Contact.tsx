@@ -30,25 +30,65 @@ function Field({
   );
 }
 
-export default function Contact() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "sending" | "sent" | "error";
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function Contact() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const data = new FormData(form);
 
-    const subject = encodeURIComponent(
-      `Portfolio message from ${data.get("name") || "Someone"}`
-    );
+    // Honeypot: real visitors never fill this hidden field.
+    if (data.get("_honey")) return;
 
-    const body = encodeURIComponent(
-      `${data.get("message")}\n\n— ${data.get("name")} (${data.get("email")})`
-    );
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const subject = String(data.get("subject") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
 
-    window.location.href = `mailto:${SOCIALS.email}?subject=${subject}&body=${body}`;
+    setStatus("sending");
 
-    setSent(true);
+    try {
+      // FormSubmit forwards the message to SOCIALS.email (no backend needed).
+      const res = await fetch(
+        `https://formsubmit.co/ajax/${SOCIALS.email}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+            _replyto: email,
+            _subject: `Portfolio: ${subject || `message from ${name}`}`,
+            _template: "table",
+            _captcha: "false",
+          }),
+        }
+      );
+
+      const json = await res.json().catch(() => null);
+      if (!res.ok || (json && json.success === "false")) {
+        throw new Error("send failed");
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch {
+      // Fallback: open the visitor's mail app with everything pre-filled.
+      const mailSubject = encodeURIComponent(
+        subject || `Portfolio message from ${name || "Someone"}`
+      );
+      const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+      window.location.href = `mailto:${SOCIALS.email}?subject=${mailSubject}&body=${body}`;
+      setStatus("error");
+    }
   };
 
   return (
@@ -75,14 +115,23 @@ export default function Contact() {
               Subject
             </label>
 
-            <textarea
+            <input
               name="subject"
+              type="text"
               required
-              rows={3}
               placeholder="Subject"
-              className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:border-accent transition resize-none"
+              className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:border-accent transition"
             />
           </div>
+
+          <input
+            type="text"
+            name="_honey"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="hidden"
+          />
 
           <div>
             <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
@@ -100,17 +149,22 @@ export default function Contact() {
 
           <button
             type="submit"
-            className="group inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition"
+            disabled={status === "sending"}
+            className="group inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-semibold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <Send className="size-4 group-hover:translate-x-0.5 transition" />
-            Send Message
+            {status === "sending" ? "Sending…" : "Send Message"}
           </button>
 
-          {sent && (
-            <p className="text-xs text-muted-foreground font-mono">
-              Opening your mail client… thanks for reaching out!
-            </p>
-          )}
+          <p
+            role="status"
+            aria-live="polite"
+            className="text-xs text-muted-foreground font-mono min-h-4"
+          >
+            {status === "sent" && "Message sent — thanks for reaching out!"}
+            {status === "error" &&
+              "Couldn't send directly, so your mail app is opening instead."}
+          </p>
         </form>
       </div>
     </section>

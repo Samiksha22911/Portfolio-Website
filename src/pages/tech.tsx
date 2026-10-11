@@ -29,14 +29,20 @@ export default function Tech() {
                   className="inline-flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-background border border-border hover:border-accent hover:-translate-y-0.5 transition-all"
                   title={t.name}
                 >
-                  <img
-                    src={`https://cdn.simpleicons.org/${t.slug}/${t.color ?? "ffffff"}`}
-                    alt=""
-                    width={16}
-                    height={16}
-                    loading="lazy"
-                    className="size-4"
-                  />
+                  {t.slug ? (
+                    <img
+                      src={`https://cdn.simpleicons.org/${t.slug}/${t.color ?? "ffffff"}`}
+                      alt=""
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                      className="size-4"
+                    />
+                  ) : (
+                    <span className="size-4 grid place-items-center">
+                      <span className="size-1.5 rounded-full bg-accent" />
+                    </span>
+                  )}
 
                   <span className="font-mono text-xs">{t.name}</span>
                 </span>

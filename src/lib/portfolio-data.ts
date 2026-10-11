@@ -1,11 +1,11 @@
-import { Trophy, Award, Star, type LucideIcon } from "lucide-react";
+import { Trophy, Award, Star, GraduationCap } from "lucide-react";
 
 export const SOCIALS = {
   github: "https://github.com/Samiksha22911",
   linkedin: "https://www.linkedin.com/in/samiksha11sharma/",
   twitter: "https://x.com/Samikshajg2g",
   leetcode: "https://leetcode.com/u/Samiksha_sharma_/",
-  email: "sharmasamiksha189@.com",
+  email: "sharmasamiksha189@gmail.com",
   resume: "/resume.pdf",
 };
 
@@ -18,7 +18,8 @@ export const NAV: { n: string; label: string; to: string }[] = [
   { n: "06", label: "Contact", to: "/contact" },
 ];
 
-export type TechItem = { name: string; slug: string; color?: string };
+// `slug` is a simple-icons name; leave it out for tools without an icon.
+export type TechItem = { name: string; slug?: string; color?: string };
 export const TECH_STACK: { title: string; items: TechItem[] }[] = [
   {
     title: "Database",
@@ -26,6 +27,30 @@ export const TECH_STACK: { title: string; items: TechItem[] }[] = [
       { name: "MongoDB", slug: "mongodb", color: "47A248" },
       { name: "PostgreSQL", slug: "postgresql", color: "4169E1" },
       { name: "MySQL", slug: "mysql", color: "4479A1" },
+    ],
+  },
+  {
+    title: "AI & Computer Vision",
+    items: [
+      { name: "YOLO" },
+      { name: "OpenCV", slug: "opencv", color: "5C3EE8" },
+      { name: "EasyOCR" },
+      { name: "FastAPI", slug: "fastapi", color: "009688" },
+    ],
+  },
+  {
+    title: "Data & Machine Learning",
+    items: [
+      { name: "pandas", slug: "pandas", color: "ffffff" },
+      { name: "scikit-learn", slug: "scikitlearn", color: "F7931E" },
+      { name: "Chart.js", slug: "chartdotjs", color: "FF6384" },
+    ],
+  },
+  {
+    title: "Auth & Backend",
+    items: [
+      { name: "JWT", slug: "jsonwebtokens", color: "ffffff" },
+      { name: "Database Integration" },
     ],
   },
   {
@@ -61,62 +86,83 @@ export const TECH_STACK: { title: string; items: TechItem[] }[] = [
 
 export const PROJECTS = [
   {
-    name: "Faculty Research Impact Portal (FRIP)",
+    name: "Smart Campus Vehicle Detection",
     blurb:
-      "A full-stack web platform for managing faculty research publications, achievements, and academic records with secure role-based access.",
-    stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
-    year: "2026",
-    link: "https://github.com/Samiksha22911/FRIP",
-    live: "#",
-    did: [
-      "Developed a centralized portal for managing faculty research publications and academic records",
-      "Implemented role-based authentication and secure CRUD operations",
-      "Built responsive dashboards and integrated REST APIs for efficient data management",
-    ],
-  },
-  
-   {
-    name: "Hospital Management System",
-    blurb:
-      "A comprehensive healthcare management platform supporting Admin, Doctor, and Patient workflows with secure access control and appointment management.",
+      "An AI-based vehicle entry verification system that detects vehicles and reads number plates in real time, backed by a FastAPI service and database.",
     stack: [
-      "React.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "JWT",
-      "Chart.js",
+      "Python",
+      "YOLO",
+      "OpenCV",
+      "EasyOCR",
+      "FastAPI",
+      "Database Integration",
     ],
     year: "2026",
-    link: "https://github.com/Samiksha22911/Hospital_Management_System",
-    live: "#",
+    // TODO: replace with the repository link for this project
+    link: "https://github.com/Samiksha22911/Campus-Guardian",
+    live: "https://campus-guardian-ten.vercel.app",
     did: [
-      "Implemented appointment scheduling and patient record management",
-      "Built JWT-based authentication with role-based access control",
-      "Designed interactive dashboards and healthcare analytics visualizations",
+      "Trained and used YOLO to detect vehicles and number plates from camera frames",
+      "Processed images with OpenCV and extracted plate text using EasyOCR",
+      "Exposed the pipeline through FastAPI endpoints and integrated a database to log and verify entries",
     ],
   },
 
   {
-  name: "Music Analytics Dashboard",
-  blurb:
-    "A Spotify-inspired music player and analytics dashboard that visualizes listening trends and user engagement through interactive charts and data insights.",
-  stack: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Python",
-    "Chart.js",
-  ],
-  year: "2025",
-  link: "https://github.com/Samiksha22911/Music_Analytics_Dashboard",
-  live: "#",
-  did: [
-    "Built a responsive Spotify-inspired music player interface using HTML, CSS, and JavaScript",
-    "Cleaned, processed, and analyzed music-related datasets using Python",
-    "Developed interactive charts and dashboards with Chart.js to visualize listening trends and user engagement",
-  ],
-}
+    name: "Music Analytics Dashboard",
+    blurb:
+      "A Spotify-inspired music player and analytics dashboard with secure login, listening insights and machine-learning-based analysis of music data.",
+    stack: [
+      "Python",
+      "pandas",
+      "scikit-learn",
+      "JavaScript",
+      "Chart.js",
+      "Node.js",
+      "Express",
+      "MySQL",
+      "JWT",
+    ],
+    year: "2025",
+    link: "https://github.com/Samiksha22911/Music_Analytics_Dashboard",
+    live: "https://music-analytics-dashboard-teal.vercel.app",
+    did: [
+      "Built a responsive music player with a Node.js and Express backend, MySQL storage and JWT-based authentication",
+      "Cleaned and analyzed music datasets with pandas, and applied scikit-learn for machine learning analysis",
+      "Developed interactive Chart.js dashboards to visualize listening trends and user engagement",
+    ],
+  },
+
+  {
+    name: "ChatSKG",
+    blurb:
+      "A ChatGPT-style chat interface built from scratch with plain HTML, CSS and JavaScript, with a clean conversational layout that works across screen sizes.",
+    stack: ["HTML", "CSS", "JavaScript"],
+    year: "2025",
+    // TODO: replace with the repository link for this project
+    link: "https://github.com/Samiksha22911/chat-SKG",
+    live: "https://chat-skg.vercel.app",
+    did: [
+      "Recreated a ChatGPT-style conversation interface using only HTML, CSS and JavaScript",
+      "Designed a responsive layout with a message thread and input area",
+      "Implemented the chat interactions and UI behavior in vanilla JavaScript",
+    ],
+  },
+
+  {
+    name: "ProcureSetu (Mini-GeM)",
+    blurb:
+      "A Mini-GeM procurement portal built for the Smart India Hackathon, handling bid discovery, bidder registration and quotation submission before handing documents off to the AI verification platform.",
+    stack: ["React", "TypeScript", "Tailwind", "FastAPI", "PostgreSQL"],
+    year: "2026",
+    // TODO: replace with the repository link for this project
+    link: "https://github.com/Samiksha22911/ProcureSetu---",
+    did: [
+      "Built the portal frontend with React, TypeScript and Tailwind, with admin, officer and bidder roles",
+      "Developed the FastAPI backend with a PostgreSQL database for bids, bidders and submissions",
+      "Designed the HTTP handoff that passes bid and bidder details to the main document verification project",
+    ],
+  },
 ];
 
 export const TIMELINE = [
@@ -173,5 +219,10 @@ export const RECOG = [
     icon: Award,
     title: "SIH 2025 Participant",
     body: "Selected in the college-level round of Smart India Hackathon 2025."
+  },
+  {
+    icon: GraduationCap,
+    title: "Machine Learning Specialization",
+    body: "DeepLearning.AI & Stanford University, on Coursera."
   }
 ];

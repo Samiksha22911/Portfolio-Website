@@ -6,7 +6,7 @@ export default function Recognition() {
     <section className="px-6 md:px-12 py-20">
       <SectionHead n="05" title="Recognition" kicker="highlights" />
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {RECOG.map(({ icon: Icon, title, body }) => (
           <div
             key={title}
